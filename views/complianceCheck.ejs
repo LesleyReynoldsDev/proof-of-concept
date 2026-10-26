@@ -13,7 +13,7 @@
                 </ul>
             </nav>
             
-                <form class="form" action="">
+                <form class="form" action="/generate-prompt" method="POST">
                     <h1 class="form__header">Create compliance check prompt</h1>
                     <% allPrompts.forEach(prompt => { %>      
                         <p class="form__paragraph">
@@ -21,7 +21,8 @@
                                         .replace("{{ Compliance Officer }}", '<input class="form__input" type="text" name="Compliance_officer" placeholder=" Compliance officer">')
                                         .replace("{{ Compliance Document }}", '<input class="form__input" type="file" name="Compliance_Document" placeholder="Compliance Document">') %>
                         </p>
-        
+                        <input type="hidden" name="original_text" value="<%- prompt.text %>">
+                        <input type="hidden" value="<%= prompt.name %>">
                         <div class="form__container--buttons">
                             <input class="form__button" type="submit" value="Start conversation using this prompt">
                             <input class="form__cancel" type="reset" value="cancel" />

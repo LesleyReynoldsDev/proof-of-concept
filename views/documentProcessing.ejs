@@ -13,15 +13,15 @@
                 </ul>
             </nav>
         
-            <form class="form" action="">
+            <form class="form" action="/generate-prompt" method="POST">
                 <h1 class="form__header">Create document processing prompt</h1>
-                <% allPrompts.forEach(prompt => { %>      
+                <% allPrompts.forEach(prompt => { %>    
+                    <input type="hidden" name="original_text" value="<%= prompt.text %>">  
                     <p class="form__paragraph">
                         <%- prompt.text.replace("{{ Main Findings }}", '<input class="form__input" type="textarea" name="Main_findings" placeholder="Main findings">')
                                     .replace("{{ Supporting Documents }}", '<input class="form__input" type="file" name="Supporting_Documents" placeholder=" Supporting Documents">')
                                     .replace("{{ Report Submission Date }}", '<input class="form__input" type="date" name="Report_Submission_Date" placeholder="Report Submission Date">') %>
                     </p>
-
                     <div class="form__container--buttons">
                         <input class="form__button" type="submit" value="Start conversation using this prompt">
                         <input class="form__cancel" type="reset" value="cancel" />

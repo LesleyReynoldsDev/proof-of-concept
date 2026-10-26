@@ -13,15 +13,15 @@
                 </ul>
             </nav>
         
-            <form class="form" action="">
+            <form class="form" action="/generate-prompt" method="POST">
                 <h1 class="form__header">Create product development prompt</h1>
-                <% allPrompts.forEach(prompt => { %>      
+                <% allPrompts.forEach(prompt => { %>     
+                    <input type="hidden" name="original_text" value="<%= prompt.text %>"> 
                     <p class="form__paragraph">
                         <%- prompt.text.replace("{{ Product Features }}", '<input class="form__input" type="text" name="Product_Features" placeholder="Product Features">')
                                     .replace("{{ Target Market }}", '<input class="form__input" type="text" name="Target_Market" placeholder="Target Market">')
                                     .replace("{{ Estimated Cost }}", '<input class="form__input" type="number" name="Estimated_Cost" placeholder="Estimated Cost">') %>
                     </p>
-
                     <div class="form__container--buttons">
                         <input class="form__button" type="submit" value="Start conversation using this prompt">
                         <input class="form__cancel" type="reset" value="cancel" />

@@ -1,0 +1,47 @@
+ <%- include('./partials/head') %>
+
+<body>
+    <%- include('./partials/nav') %>
+
+    <main class="main">
+        <nav class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li class="breadcrumb__item">
+                    <a href="/" class="breadcrumb__link">Home</a>
+                </li>
+                <li class="breadcrumb__item">
+                    <a href="/prompt-result" class="breadcrumb__link">Generated prompt</a>
+                </li>
+            </ul>
+        </nav>
+
+        <section class="prompt">
+            <h1 class="prompt__header">Your generated prompt</h1>
+
+            <p class="prompt__paragraph">
+                Your prompt has been generated successfully.
+            </p>
+
+            <pre class="prompt__message"><%= generatedPrompt %></pre>
+
+            <div class="prompt__container--buttons">
+                <button
+                    class="buttons__link"
+                    type="button"
+                    onclick="navigator.clipboard.writeText(document.querySelector('.prompt__message').innerText)">
+                    Copy prompt
+                </button>
+
+                <button
+                    class="form__cancel"
+                    type="button"
+                    onclick="history.back()">
+                    Back to form
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./partials/foot') %>
+</body>
+</html>

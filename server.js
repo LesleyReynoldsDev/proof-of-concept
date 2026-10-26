@@ -1,5 +1,6 @@
 // Importeerd npm pakket express uit de node_modules map
 import express, { response } from 'express'
+import session from 'express-session'
 
 
 // Importeerd de zelfgemaakte functie fetchJson uit de ./helpers map
@@ -34,6 +35,59 @@ app.use(express.json());
 
 // Zorg dat werken met request data makkelijker wordt
 app.use(express.urlencoded({extended: true}))
+
+// Bewaart tijdelijk de gegenereerde prompt, zodat de volgede route die kan ophalen
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'development-secret',
+    resave: false,
+    saveUninitialized: false
+}))
+
+// De route zet de ingevulde waarde op de juiste plek zolang de veldnamen overenkomen met de placeholders
+app.post('/generate-prompt', function(req, res) {
+    const originalText = req.body.original_text;
+
+    if (typeof originalText !== 'string') {
+        return res.status(400).send('Original prompt is missing.');
+    }
+
+    const formData = req.body;
+
+    const filledText = originalText.replace(
+        /\{\{\s*(.*?)\s*\}\}/g,
+        function(match, placeholder) {
+            const matchingField = Object.keys(formData).find(
+                key =>
+                    key !== 'original_text' &&
+                    key.toLowerCase().replace(/_/g, ' ') ===
+                    placeholder.trim().toLowerCase()
+            );
+
+            if (!matchingField) {
+                return match;
+            }
+
+            return String(formData[matchingField] ?? '');
+        }
+    );
+
+    req.session.generatedPrompt = filledText;
+
+    res.redirect(303, '/prompt-result');
+});
+
+
+app.get('/prompt-result', function(req, res) {
+    if (typeof req.session.generatedPrompt !== 'string') {
+        return res.redirect('/');
+    }
+
+    res.render('promptResult', {
+        generatedPrompt: req.session.generatedPrompt
+    });
+});
+
+
 
 // hier word de data die ingevoerd word in de forumlier meegegeven in de variable promptMessages en dit wil ik hiermee kunnen weergeven in de pagina
 const promptMessages = [];
