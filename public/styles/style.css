@@ -425,7 +425,6 @@ body {
     section {
         grid-area: section;
         min-width: 0;
-        padding: 20px;
     }
 
     .navbar__logo-container {

@@ -2,24 +2,25 @@
 
 <body>
     <%- include('./partials/nav') %>
+    <main class="main">
+        <nav class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">Home</a></li>
+                <li class="breadcrumb__item"><a href="/audit" class="breadcrumb__link">Audit</a></li>
+            </ul>
+        </nav>
 
-    <nav class="breadcrumb">
-        <ul class="breadcrumb__list">
-            <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">Home</a></li>
-            <li class="breadcrumb__item"><a href="/audit" class="breadcrumb__link">Audit</a></li>
-        </ul>
-    </nav>
-
-    
         
-    <section>
-        <h1 class="head">Choose one of the following prompts for your audit</h1>
-        <div class="container__links">
-            <img class="secondbuttons__img" src="/assets/headstart-logo.png" alt="headstart logo">
-            <a href="/financialReview" class="buttons__link">Financial Review</a>
-            <a href="/complianceCheck" class="buttons__link">Compliance check</a>
-        </div>
-    </section>
+            
+        <section>
+            <h1 class="head">Choose one of the following prompts for your audit</h1>
+            <div class="container__links">
+                <img class="secondbuttons__img" src="/assets/headstart-logo.png" alt="headstart logo">
+                <a href="/financialReview" class="buttons__link">Financial Review</a>
+                <a href="/complianceCheck" class="buttons__link">Compliance check</a>
+            </div>
+        </section>
+    </main>
       
     <%- include('./partials/foot') %>
 
